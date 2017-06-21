@@ -1,0 +1,12 @@
+[package]
+name = "rrun2"
+version = "0.1.0"
+authors = ["Sebastian May <me@bstr.eu>"]
+
+[profile.release]
+lto = true
+panic = 'abort'
+
+[dependencies.gtk]
+version = "*"
+features = ["v3_22"]
