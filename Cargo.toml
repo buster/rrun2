@@ -2,11 +2,24 @@
 name = "rrun2"
 version = "0.1.0"
 authors = ["Sebastian May <me@bstr.eu>"]
+# build = "tango-build.rs"
+
+[[bin]]
+name = "rrun"
+path = "src/main.rs"
 
 [profile.release]
 lto = true
 panic = 'abort'
 
+[build-dependencies.tango]
+git = "https://github.com/pnkfelix/tango"
+
 [dependencies.gtk]
 version = "*"
 features = ["v3_22"]
+
+[dependencies]
+log = "*"
+gdk = "*"
+simplelog = "*"

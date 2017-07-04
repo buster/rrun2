@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<title>main.html</title>
+
+</head>
+
+<body>
+
+<h1>Rust Runner 2.0b1</h1>
+
+<h2>System Allocator</h2>
+
+<p>To reduce binary size, we are using the system allocator:</p>
+
+<p>```rust</p>
+
+<h1>![feature(alloc_system)]</h1>
+
+<p>extern crate alloc_system;
+```</p>
+
+<h2>Includes</h2>
+
+<h2>Test first</h2>
+
+<p>```rust</p>
+
+<h1>[test]</h1>
+
+<p>fn it_works() {
+    println!("Hello World");
+    println!("Goodbye World");
+    assert!(yesyes() == true);
+}
+```</p>
+
+<p>```rust
+extern crate gtk;</p>
+
+<p>use gtk::prelude::*;
+use gtk::{Builder, Window, TreeView, SearchEntry};
+use std::io::Read;
+use std::fs::File;</p>
+
+<p>fn main() {
+    gtk::init().unwrap<em>or</em>else(|<em>| panic!("Failed to initialize GTK."));
+    const GLADE</em>STRING: &amp;'static str = include<em>str!("rrun.glade");
+    let mut builder = Builder::new</em>from<em>string(GLADE</em>STRING);
+    let window: Window = builder.get<em>object("rrun").unwrap();
+    let completion</em>list: TreeView = builder.get<em>object("completion</em>view").unwrap();
+    let entry: SearchEntry = builder.get<em>object("search</em>entry").unwrap();
+    window.connect<em>delete</em>event(|<em>, _| {
+        gtk::main</em>quit();
+        Inhibit(false)
+    });
+    window.set<em>border</em>width(0);
+    window.set<em>decorated(false);
+    // window.show</em>all();
+    window.iconify();
+    gtk::main();
+}
+```</p>
+
+<p><code>rust
+fn yesyes() -&gt; bool {
+   true
+}
+</code></p>
+
+</body>
+</html>

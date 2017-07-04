@@ -1,21 +1,35 @@
+# Rust Runner 2.0b1 #
+
+## System Allocator ##
+
+To reduce binary size, we are using the system allocator:
+
+```rust
 #![feature(alloc_system)]
 extern crate alloc_system;
-#[macro_use] extern crate log;
-extern crate simplelog;
+```
 
+## Includes 
+
+## Test first
+```rust
+#[test]
+fn it_works() {
+    println!("Hello World");
+    println!("Goodbye World");
+    assert!(yesyes() == true);
+}
+```
+
+```rust
 extern crate gtk;
-extern crate gdk;
 
 use gtk::prelude::*;
 use gtk::{Builder, Window, TreeView, SearchEntry};
-use simplelog::{Config, TermLogger, WriteLogger, CombinedLogger, LogLevelFilter};
-
-use gdk::key;
 use std::io::Read;
 use std::fs::File;
 
 fn main() {
-    setup_logging(LogLevelFilter::Debug);
     gtk::init().unwrap_or_else(|_| panic!("Failed to initialize GTK."));
     const GLADE_STRING: &'static str = include_str!("rrun.glade");
     let mut builder = Builder::new_from_string(GLADE_STRING);
@@ -30,13 +44,10 @@ fn main() {
     window.connect_key_release_event(move |_, key| {
         let keyval = key.get_keyval();
         let keystate = key.get_state();
+        // let keystate = (*key).state;
         debug!("key pressed: {}", keyval);
         match keyval {
-            gdk::enums::key::Escape => {
-                info!("Quitting...");
-                gtk::main_quit()
-            }
-            _ => (),
+            key::Escape => gtk::main_quit()
         };
         Inhibit(false)
     });
@@ -47,12 +58,11 @@ fn main() {
     // window.iconify();
     gtk::main();
 }
+```
 
-fn setup_logging(log_level: LogLevelFilter) {
-    CombinedLogger::init(
-        vec![
-            TermLogger::new(log_level, Config::default()).unwrap(),
-            //WriteLogger::new(log_level, Config::default(), File::create("my_rust_binary.log").unwrap()),
-        ]
-    ).unwrap();
+
+```rust
+fn yesyes() -> bool {
+   true
 }
+```
