@@ -1,21 +1,19 @@
 #![feature(alloc_system)]
 extern crate alloc_system;
-#[macro_use] extern crate log;
+#[macro_use]
+extern crate log;
 extern crate simplelog;
 
 extern crate gtk;
 extern crate gdk;
 
+extern crate commander;
+
 use gtk::prelude::*;
 use gtk::{Builder, Window, TreeView, SearchEntry};
-use simplelog::{Config, TermLogger, WriteLogger, CombinedLogger, LogLevelFilter};
-
-use gdk::key;
-use std::io::Read;
-use std::fs::File;
 
 fn main() {
-    setup_logging(LogLevelFilter::Debug);
+    setup_logging(simplelog::LogLevelFilter::Debug);
     gtk::init().unwrap_or_else(|_| panic!("Failed to initialize GTK."));
     const GLADE_STRING: &'static str = include_str!("rrun.glade");
     let mut builder = Builder::new_from_string(GLADE_STRING);
@@ -48,7 +46,8 @@ fn main() {
     gtk::main();
 }
 
-fn setup_logging(log_level: LogLevelFilter) {
+fn setup_logging(log_level: simplelog::LogLevelFilter) {
+    use simplelog::{Config, TermLogger, CombinedLogger};
     CombinedLogger::init(
         vec![
             TermLogger::new(log_level, Config::default()).unwrap(),
