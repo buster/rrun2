@@ -16,7 +16,7 @@ fn main() {
     setup_logging(simplelog::LogLevelFilter::Debug);
     gtk::init().unwrap_or_else(|_| panic!("Failed to initialize GTK."));
     const GLADE_STRING: &'static str = include_str!("rrun.glade");
-    let mut builder = Builder::new_from_string(GLADE_STRING);
+    let builder = Builder::new_from_string(GLADE_STRING);
     let window: Window = builder.get_object("rrun").unwrap();
     let completion_list: TreeView = builder.get_object("completion_view").unwrap();
     let entry: SearchEntry = builder.get_object("search_entry").unwrap();
