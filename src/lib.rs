@@ -1,5 +1,6 @@
 #[macro_use]
 extern crate log;
+extern crate quale;
 
 struct Commander<'engine> {
     engines: Vec<&'engine Box<CompletionEngine>>
@@ -41,7 +42,11 @@ struct MathCompletionEngine {
 
 impl MathCompletionEngine {
     fn init() -> Option<MathCompletionEngine> {
-        Some(MathCompletionEngine { name: "MathCompletionEngine".to_owned() })
+        match quale::which("qalc") {
+            Some(_) => Some(MathCompletionEngine { name: "MathCompletionEngine".to_owned() }),
+            None => None
+        }
+        
     }
 }
 
@@ -58,7 +63,10 @@ fn should_not_run_text_string_through_qalc() {
 
 #[test]
 fn should_not_initialize_math_engine_if_qalc_is_missing() {
-    unimplemented!();
+    std::env::remove_var("PATH");
+    let eng = MathCompletionEngine::init();
+    println!("{:?}", eng);
+    assert!(eng.is_none());
 }
 
 #[test]
